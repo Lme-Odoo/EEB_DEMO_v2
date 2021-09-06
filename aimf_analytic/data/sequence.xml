@@ -1,0 +1,15 @@
+<odoo>
+    <record id="analytic_account_reassignment_reference_sequence" model="ir.sequence">
+        <field name="name">analytic_account_reassignment_reference_sequence</field>
+        <field name="code">analytic.account.reassignment.reference.sequence</field>
+        <field name="prefix">REAF/</field>
+        <field name="padding">8</field>
+    </record>
+
+    <record id="analytic_cost_item_reference_sequence" model="ir.sequence">
+        <field name="name">Analytic Cost Item Sequence</field>
+        <field name="code">analytic.cost.item</field>
+        <field name="prefix">CI/</field>
+        <field name="padding">8</field>
+    </record>
+</odoo>

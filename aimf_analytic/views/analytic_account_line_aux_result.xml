@@ -1,0 +1,37 @@
+<odoo>
+    <record model="ir.ui.view" id="analytic_account_line_aux_result_form_view">
+        <field name="name">analytic account line aux result form</field>
+        <field name="model">analytic.account.line.aux.result</field>
+        <field name="arch" type="xml">
+            <form string="Cost item form">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="analytic_account_line_aux_result_tree_view">
+        <field name="name">Compte de ligne auxiliaire résultat tree</field>
+        <field name="model">analytic.account.line.aux.result</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+            </tree>
+        </field>
+    </record>
+
+    <record model="ir.actions.act_window" id="analytic_account_line_aux_result_aimf_action">
+        <field name="name">Résultat form</field>
+        <field name="res_model">analytic.account.line.aux.result</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_id" ref="analytic_account_line_aux_result_tree_view"/>
+    </record>   
+
+    <menuitem id="analytic_account_line_aux_result_aimf_menu" name="Résultats" action="analytic_account_line_aux_result_aimf_action" groups="analytic.group_analytic_accounting" parent="account.menu_analytic_accounting"/>
+
+</odoo>

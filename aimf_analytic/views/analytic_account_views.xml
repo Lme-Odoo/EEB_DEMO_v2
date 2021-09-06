@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_account_analytic_account_form" model="ir.ui.view">
+        <field name="name">analytic.analytic.account.form</field>
+        <field name="model">account.analytic.account</field>
+        <field name="inherit_id" ref="analytic.view_account_analytic_account_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//sheet" position="before">
+                <header>
+                    <button name="button_reassign" string="Réaffecter vers" type="object" groups="account.group_account_manager"/>
+                </header>
+            </xpath>
+            <xpath expr="//field[@name='partner_id']" position="replace">
+                <field name="partner_id" string='Bailleur'/>
+                <field name="programation_id" string='Programmation'/>
+            </xpath>
+            <xpath expr="//field[@name='partner_id']" position="after">
+                <field name="balance"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>

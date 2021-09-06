@@ -1,0 +1,8 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_account_analytic_reassignment,access_account_analytic_reassignment,model_account_analytic_reassignment,base.group_user,1,1,1,1
+access_analytic_account_line_aux_result,access_analytic_account_line_aux_result,model_analytic_account_line_aux_result,base.group_user,1,1,1,1
+access_analytic_account_line_aux,access_analytic_account_line_aux,model_analytic_account_line_aux,base.group_user,1,1,1,1
+access_analytic_cost_item,access_analytic_cost_item,model_analytic_cost_item,base.group_user,1,1,1,1
+access_status,access_status,model_aimf_status,base.group_user,1,1,1,1
+access_programation,access_programation,model_aimf_programation,base.group_user,1,1,1,1,
+access_analytic_cost_item_uom,access_analytic_cost_item_uom,model_analytic_cost_item_uom,base.group_user,1,1,1,1

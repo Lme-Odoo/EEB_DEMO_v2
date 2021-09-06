@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="report_invoice_with_payments_aimf" inherit_id="account.report_invoice_document">
+        <xpath expr="//th[@name='th_taxes']" position="replace">
+        </xpath>
+        <xpath expr="//th[@name='th_quantity']" position="replace">
+            <th name="th_invoicing_year" class="text-right"><span>Invoicing Year</span></th>
+        </xpath>
+        <xpath expr="//th[@name='th_price_unit']" position="replace">
+        </xpath>
+        <xpath expr="//th[@name='th_priceunit']" position="replace">
+        </xpath>
+        <xpath expr="//tbody//tr//td[3]" position="replace">
+        </xpath>
+        <xpath expr="//tbody//tr//td[2]" position="replace">
+            <td class="text-right">
+                <span t-esc="o.invoice_date.year"/>
+            </td>
+        </xpath>
+        <xpath expr="//tbody//tr//td[4]" position="replace">
+        </xpath>
+        <xpath expr="//div[hasclass('page')]" position="inside">
+        <div class="border-black">
+            <div style="margin-bottom:5px;text-align:right;page-break-inside: avoid;">
+                <div>
+                    <span>Le secrétaire permanent:</span>
+                </div>
+                <div>
+                    <t t-if="o.company_id.signature_image">
+                        <img  t-att-src="image_data_uri(o.company_id.signature_image)" style="max-width:300px;"/>
+                    </t>
+                </div>
+
+                <div>
+                <t t-set="partner_permanent" t-value="o.company_id.permanent_secretary_id"/>
+                    <t t-if="partner_permanent.display_name">
+                        <span t-field="partner_permanent.display_name"/>
+                    </t>
+                </div> 
+            
+            </div>
+
+            <div style="border:2px solid #000;margin-bottom:5px;padding:20px;page-break-inside: avoid;">
+                <div>
+                    <t t-set="invoicing_account" t-value="o.company_id.invoicing_account_id"/>
+                    <t t-set="acc_number_no_space" t-value="invoicing_account.acc_number.replace(' ', '')"/>
+                    <t t-set="bank" t-value="invoicing_account.bank_id"/>
+
+                    <span>Banque:    </span>
+                    <t t-if="bank.name">
+                        <span t-esc="bank.name"/>
+                    </t>
+                    <t t-if="bank.street">
+                         <span> - </span>
+                        <span t-esc="bank.street"/>
+                    </t>
+                    <t t-if="bank.city">
+                        <span> - </span>
+                        <span t-esc="bank.city"/>
+                    </t>
+                    <br/>
+                    <t t-if="invoicing_account.partner_id.display_name">
+                        <span t-esc="invoicing_account.partner_id.display_name"/>
+                    </t>
+                </div>
+
+                <div name="account_number">
+                    <table class="table text-center" style="border: 0;">
+                        <tr>
+                            <td style="border: 0 !important;">
+                                <span>Code de banque:</span>
+                            </td>
+                            <td style="border: 0 !important;">
+                                <span>Code guichet:</span>
+                            </td >
+                            <td style="border: 0 !important;">
+                                <span>Numéro de compte:</span>
+                            </td>
+                            <td style="border: 0 !important;">
+                                <span>Clé RIB:</span>
+                            </td>
+                        </tr>
+                        <tr t-if="acc_number_no_space">
+                            <td style="border: 0 !important;">
+                                <span t-esc="acc_number_no_space[4:9]"/>
+                            </td >
+                            <td style="border: 0 !important;">
+                                <span t-esc="acc_number_no_space[9:14]"/>
+                            </td>
+                            <td style="border: 0 !important;">
+                                <span t-esc="acc_number_no_space[14:24]"/>
+                            </td>
+                            <td style="border: 0 !important;">
+                                <span t-esc="acc_number_no_space[24:26]"/>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <div>
+                    <span>BIC:    </span>
+                    <t t-if="invoicing_account.bank_bic">
+                        <span t-field="invoicing_account.bank_bic"/>
+                    </t>
+                </div>
+                <div>
+                    <span>IBAN:    </span>
+                    <t t-if="acc_number_no_space">
+                        <span t-esc="invoicing_account.acc_number"/>
+                    </t>
+                </div>
+            </div>
+        </div>
+        </xpath>
+
+        <xpath expr="//p[@name='payment_communication']" position="attributes">
+            <attribute name="style">margin-top: 20px;</attribute>
+        </xpath>
+    </template>
+
+    <template id="external_layout_boxed" inherit_id="web.external_layout_boxed">
+        <xpath expr="//img[1]" position="attributes">
+            <attribute name="style">max-height: 200px; height: 200px;</attribute>
+        </xpath>
+    </template>
+
+</odoo>

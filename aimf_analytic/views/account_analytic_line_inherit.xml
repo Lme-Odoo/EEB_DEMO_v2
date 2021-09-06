@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="account_analytic_line_inherit_aimf" model="ir.ui.view">
+        <field name="name">account.analytic.line.aimf</field>
+        <field name="model">account.analytic.line</field>
+        <field name="inherit_id" ref="analytic.view_account_analytic_line_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='move_id']" position="after">
+                <field name="analytic_aux_line_ids"/>
+            </xpath>
+            <xpath expr="//field[@name='product_uom_id']" position="after">
+                <field name="is_different_amount"/>
+            </xpath>
+            <xpath expr="//field[@name='ref']" position="after">
+                <field name="bailleur_id"/>
+            </xpath>
+            <xpath expr="//field[@name='analytic_aux_line_ids']" position="replace">
+                <field name="analytic_aux_line_ids" widget="one2many">
+                    <tree>
+                        <field name="name"/> 
+                        <field name="amount" sum="Total"/> 
+                        <field name="analytic_cost_item_id"/> 
+                        <field name="group_id" invisible="1"/> 
+                        <field name="unit_amount"/> 
+                        <field name="invoice_date"/> 
+                        <field name="state" invisible="1"/>
+                        <!-- <field name="is_different_amount" invisible="1"/> -->
+                    </tree>
+                </field>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="analytical_line_view_tree_inherit" model="ir.ui.view">
+        <field name="name">account.analytic.line.aimf.tree</field>
+        <field name="model">account.analytic.line</field>
+        <field name="inherit_id" ref="analytic.view_account_analytic_line_tree"/>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="is_different_amount" invisible="1"/>
+            </tree>
+        </field>
+    </record>
+</odoo>

@@ -1,0 +1,132 @@
+<odoo>
+    <record model="ir.ui.view" id="cost_item_form_view">
+        <field name="name">cost item form</field>
+        <field name="model">analytic.cost.item</field>
+        <field name="arch" type="xml">
+            <form string="Poste de cout form">
+                <sheet>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="description"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="group_id" string="Projet"/>
+                            <field name="is_cost_item"/>
+                            <field name="level"  invisible="1"/>
+                            <field name="position" invisible="1"/>
+                            <field name="prefix"  invisible="1"/>
+                            <field name="sequence"/>
+                            <field name="reference" invisible="1"/>
+                        </group>
+                        <group>
+                            <field name="parent_id" domain="[('is_cost_item', '=', False)]"/>
+                            <field name="dotation" attrs="{'invisible': [('is_cost_item', '!=', False)]}"/>
+                            <field name="uom" attrs="{'invisible': [('is_cost_item', '!=', False)]}"/>
+                            <field name="uom_number" attrs="{'invisible': [('is_cost_item', '!=', False)]}"/>
+                            <field name="unit_dotation" attrs="{'invisible': [('is_cost_item', '!=', False)]}"/>
+                            <field name="total_unit_spend" attrs="{'invisible': [('is_cost_item', '!=', False)]}"/>
+                            <field name="total_dotation" attrs="{'invisible': [('is_cost_item', '=', False)]}"/>
+                            <field name="linked_spend" attrs="{'invisible': [('is_cost_item', '!=', False)]}"/>
+                            <field name="spend" attrs="{'invisible': [('is_cost_item', '=', False)]}"/>
+                            <field name="amount" attrs="{'invisible': [('is_cost_item', '!=', False)]}"/>
+                            <field name="total_amount" attrs="{'invisible': [('is_cost_item', '=', False)]}"/>
+                        </group>
+                        <label for="child_ids" attrs="{'invisible': [('is_cost_item', '=', False)]}"/>
+                        <field name="child_ids" attrs="{'invisible': [('is_cost_item', '=', False)]}" nolabel="1"/>
+                        <field name="analytic_aux_ids" widget="one2many" attrs="{'invisible': [('is_cost_item', '=', True)]}" readonly="1">
+                            <tree>
+                                <field name="name"/>
+                                <field name="amount" sum="Total"/>
+                                <field name="analytic_cost_item_id" invisible="1"/>
+                                <field name="group_id" invisible="1"/>
+                                <field name="unit_amount"/>
+                                <field name="invoice_date"/>
+                                <field name="state" />
+                            </tree>
+                        </field>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="cost_item_tree_view">
+        <field name="name">cost item tree</field>
+        <field name="model">analytic.cost.item</field>
+        <field name="arch" type="xml">
+            <tree decoration-success="level==0" decoration-info="level==1" decoration-bf="level==0" default_order='position'>
+                <field name="name"/>
+                <field name="reference" invisible="1"/>
+                <field name="level"  invisible="1"/>
+                <field name="position" invisible="1"/>
+                <field name="prefix"  invisible="1"/>
+                <field name="sequence"  invisible="1"/>                
+                <field name="dotation"/>
+                <field name="total_dotation"/>
+                <field name="linked_spend"/>
+                <field name="spend"/>
+                <field name="amount"/>
+                <field name="total_amount"/>
+                <field name="is_cost_item" invisible="1"/>
+                <field name="group_id" invisible="1"/>
+            </tree>
+        </field>
+    </record>
+
+    <record model="ir.actions.act_window" id="cost_item_aimf_action">
+        <field name="name">Postes de couts </field>
+        <field name="res_model">analytic.cost.item</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_id" ref="cost_item_tree_view"/>
+    </record>   
+
+    <record id="analytic_cost_item_search_view" model="ir.ui.view">
+        <field name="name">analytic.cost.item.search</field>
+        <field name="model">analytic.cost.item</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="group_id"/>
+                <filter name="group_by_project" string="Grouper par projet" context="{'group_by': 'group_id'}" />
+            </search>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="cost_item_uom_form_view">
+        <field name="name">cost item uom form</field>
+        <field name="model">analytic.cost.item.uom</field>
+        <field name="arch" type="xml">
+            <form string="Unités">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="cost_item_uom_tree_view">
+        <field name="name">cost item uom tree</field>
+        <field name="model">analytic.cost.item.uom</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+            </tree>
+        </field>
+    </record>
+
+    <record model="ir.actions.act_window" id="cost_item_uom_aimf_action">
+        <field name="name">Unités</field>
+        <field name="res_model">analytic.cost.item.uom</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_id" ref="cost_item_uom_tree_view"/>
+    </record>
+
+    <menuitem id="cost_item_aimf_menu" name="Postes de couts" action="cost_item_aimf_action" groups="analytic.group_analytic_accounting" parent="account.menu_analytic_accounting"/>
+    <menuitem id="cost_item_uom_aimf_menu" name="Unités" action="cost_item_uom_aimf_action" groups="analytic.group_analytic_accounting" parent="account.menu_analytic_accounting"/>
+</odoo>

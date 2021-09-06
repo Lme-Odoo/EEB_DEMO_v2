@@ -1,0 +1,37 @@
+<odoo>
+    <record model="ir.ui.view" id="programation_aimf_form_view">
+        <field name="name">programation aimf form</field>
+        <field name="model">aimf.programation</field>
+        <field name="arch" type="xml">
+            <form string="Cost item form">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="programation_aimf_tree_view">
+        <field name="name">Programation tree</field>
+        <field name="model">aimf.programation</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+            </tree>
+        </field>
+    </record>
+
+    <record model="ir.actions.act_window" id="programation_aimf_action">
+        <field name="name">Programmation form</field>
+        <field name="res_model">aimf.programation</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_id" ref="programation_aimf_tree_view"/>
+    </record>   
+
+    <menuitem id="programation_aimf_menu" name="Programmation" action="programation_aimf_action" groups="analytic.group_analytic_accounting" parent="account.menu_analytic_accounting"/>
+
+</odoo>

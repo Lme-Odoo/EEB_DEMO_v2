@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record model="ir.ui.view" id="analytic_account_line_aux_tree_view">
+        <field name="name">Compte analytic ligne auxiliaires tree</field>
+        <field name="model">analytic.account.line.aux</field>
+        <field name="arch" type="xml">
+            <tree  create="false" multi_edit="1">
+                <field name="ref_number"/>
+                <field name="name"/>
+                <field name="amount"/>
+                <field name="analytic_cost_item_id" domain="[('is_cost_item','=',False), ('group_id','=',group_id)]"/>
+                <field name="group_id"/>
+                <field name="unit_amount"/>
+                <field name="invoice_date"/>
+                <field name="realisation_date"/>
+                <field name="state" widget="badge" decoration-success="state=='validated'"/>                
+            </tree>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="aux_line_form_view">
+        <field name="name">Compte analytic ligne auxiliaires form</field>
+        <field name="model">analytic.account.line.aux</field>
+        <field name="arch" type="xml">
+            <form string="aux form"  create="false">
+                <sheet>
+                <group>  
+                    <group>
+                        <field name="group_id"/>
+                        <field name="name"/>
+                        <field name="analytic_account_line_id" string="Ligne analytique"  readonly= "1"/>
+                        <field name="amount"/>
+                        <field name="currency_id" invisible= "1"/>
+                        <field name="absolute_value_amount" invisible= "1"/>
+                        <field name="bailleur_id"/>
+                        <field name="ref_number"/>
+                    </group>
+                    <group>
+                        <field name="unit_amount"/>
+                        <field name="invoice_date"/>
+                        <field name="realisation_date"/>
+                        <field name="analytic_cost_item_id" domain="[('is_cost_item','=',False), ('group_id','=',group_id)]"/>
+                        <field name="result"/>
+                        <field name="state"/>                        
+                    </group>
+                </group>
+                </sheet> 
+            </form>
+        </field>
+    </record>
+
+
+    <record id="analytic_account_line_aux_search_view" model="ir.ui.view">
+        <field name="name">analytic.account.line.aux.search</field>
+        <field name="model">analytic.account.line.aux</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="group_id"/>
+                <filter name="group_by_project" string="Grouper par projet" context="{'group_by': 'group_id'}" />
+            </search>
+        </field>
+    </record>
+
+
+
+
+
+    <record model="ir.actions.act_window" id="aux_item_line_aimf_action">
+        <field name="name">Ecritures Auxiliaires</field>
+        <field name="res_model">analytic.account.line.aux</field>
+        <field name="view_mode">tree,form</field>
+        <field name="view_id" ref="analytic_account_line_aux_tree_view"/>
+    </record>   
+
+    <menuitem id="aux_item_line_menu" name="Ecritures auxiliaires" action="aux_item_line_aimf_action" groups="analytic.group_analytic_accounting" parent="account.menu_analytic_accounting"/>
+    
+</odoo>
+
+

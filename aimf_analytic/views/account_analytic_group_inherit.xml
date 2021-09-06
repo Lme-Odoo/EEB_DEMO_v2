@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="account_analytic_group_aimf_inherit" model="ir.ui.view">
+        <field name="name">account.analytic.group.aimf</field>
+        <field name="model">account.analytic.group</field>
+        <field name="inherit_id" ref="analytic.account_analytic_group_form_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//sheet" position="replace">
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button name="get_aux_lines"
+                                type="object" class="oe_stat_button" icon="fa-book">
+                            <field string="Aux lines" name="get_all_aux_lines" widget="statinfo"/>
+                        </button>
+                        <button name="get_cost_items"
+                                type="object" class="oe_stat_button" icon="fa-book">
+                            <field string="Costs Items" name="get_all_cost_items" widget="statinfo"/>
+                        </button>
+                    </div>   
+                    <group>
+                        <field name="name"/>
+                        <field name="parent_id"/>
+                        <field name="beneficiary_city_id"/>
+                        <field name="manager_id"/>
+                        <field name="status_id"/>
+                    </group>
+                    <group>
+                        <field name="description"/>
+                        <field name="company_id" groups="base.group_multi_company"/>
+                    </group>
+                </sheet>             
+            </xpath>
+        </field>
+    </record>
+</odoo>
